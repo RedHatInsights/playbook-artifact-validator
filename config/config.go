@@ -23,7 +23,7 @@ func Get() *viper.Viper {
 	options.SetDefault("topic.request", "platform.upload.playbook")
 	options.SetDefault("topic.response", "platform.upload.validation")
 
-	options.SetDefault("metrics.port", 8080)
+	options.SetDefault("metrics.port", 9000)
 	options.SetDefault("metrics.path", "/metrics")
 
 	options.SetDefault("openshift.build.commit", "unknown")
@@ -42,7 +42,7 @@ func Get() *viper.Viper {
 		options.SetDefault("topic.request", "platform.upload.playbook")
 		options.SetDefault("topic.response", "platform.upload.validation")
 
-		options.SetDefault("metrics.port", 8080)
+		options.SetDefault("metrics.port", 9000)
 		options.SetDefault("metrics.path", "/metrics")
 	}
 
