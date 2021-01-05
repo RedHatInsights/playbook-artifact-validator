@@ -72,7 +72,6 @@ parameters:
   required: true
 - description: Image
   name: IMAGE
-  required: true
   value: quay.io/cloudservices/playbook-artifact-validator
 - description : ClowdEnvironment name
   name: ENV_NAME
