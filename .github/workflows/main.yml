@@ -1,0 +1,16 @@
+---
+name: Run Tests
+
+on:
+  - pull_request
+
+jobs:
+  testing:
+    runs-on: ubuntu-20.04
+    container: golang:1.13
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run Tests
+        run: ACG_CONFIG=$(pwd)/cdappconfig.json go test ./...
