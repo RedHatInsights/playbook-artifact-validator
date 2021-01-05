@@ -1,0 +1,32 @@
+{
+    "webPort": 8080,
+    "metricsPort": 8080,
+    "metricsPath": "/metrics",
+    "logging": {
+        "type": "cloudwatch",
+        "cloudwatch": {
+            "accessKeyId": "ACCESS_KEY",
+            "secretAccessKey": "SECRET_ACCESS_KEY",
+            "region": "EU",
+            "logGroup": "base_app"
+        }
+    },
+    "kafka": {
+        "brokers": [
+            {
+                "hostname": "kafka",
+                "port": 29092
+            }
+        ],
+        "topics": [
+            {
+                "requestedName": "platform.upload.playbook",
+                "name": "platform.upload.playbook"
+            },
+            {
+                "requestedName": "platform.upload.validation",
+                "name": "platform.upload.validation"
+            }
+        ]
+    }
+}

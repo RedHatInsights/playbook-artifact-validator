@@ -1,9 +1,12 @@
 package config
 
 import (
+	"os"
 	"strings"
 
 	"github.com/spf13/viper"
+
+	clowder "github.com/redhatinsights/app-common-go/pkg/api/v1"
 )
 
 func Get() *viper.Viper {
@@ -26,6 +29,22 @@ func Get() *viper.Viper {
 	options.SetDefault("openshift.build.commit", "unknown")
 
 	options.SetDefault("log.level", "info")
+
+	if os.Getenv("CLOWDER_ENABLED") != "false" {
+		options.SetDefault("kafka.bootstrap.servers", strings.Join(clowder.KafkaServers, ","))
+		options.SetDefault("topic.request", clowder.KafkaTopics["platform.upload.playbook"].Name)
+		options.SetDefault("topic.response", clowder.KafkaTopics["platform.upload.validation"].Name)
+
+		options.SetDefault("metrics.port", clowder.LoadedConfig.MetricsPort)
+		options.SetDefault("metrics.path", clowder.LoadedConfig.MetricsPath)
+	} else {
+		options.SetDefault("kafka.bootstrap.servers", "kafka:29092")
+		options.SetDefault("topic.request", "platform.upload.playbook")
+		options.SetDefault("topic.response", "platform.upload.validation")
+
+		options.SetDefault("metrics.port", 8080)
+		options.SetDefault("metrics.path", "/metrics")
+	}
 
 	options.AutomaticEnv()
 	options.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
