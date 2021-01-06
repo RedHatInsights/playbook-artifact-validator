@@ -16,3 +16,8 @@ func UnmarshallingError(err error) {
 	errorTotal.WithLabelValues("unmarshall").Inc()
 	log.Errorw("Request unmarshalling failed", "error", err) // TODO some correlation info
 }
+
+func FetchArchiveError(request *ingress.Request, err error) {
+	errorTotal.WithLabelValues("s3fetch").Inc()
+	log.Errorw("Failed to fetch uploaded archive", "error", err, "reqId", request.RequestID)
+}

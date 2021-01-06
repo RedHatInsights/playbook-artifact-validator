@@ -10,7 +10,7 @@ import (
 var _ = Describe("Validator", func() {
 	It("Rejects every payload", func() {
 		request := &ingress.Request{}
-		response := validateArtifacts(request)
+		response := validateArtifacts(request, []byte{})
 		Expect(response.Validation).To(Equal("failure"))
 	})
 })
