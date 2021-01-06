@@ -5,7 +5,10 @@ import (
 	probes "playbook-artifact-validator/instrumentation"
 )
 
-func validateArtifacts(request *ingress.Request) *ingress.Response {
+func validateArtifacts(request *ingress.Request, data []byte) *ingress.Response {
+
+	log.Debugf("Received data: %s", data)
+
 	response := &ingress.Response{
 		Request:    *request,
 		Validation: "failure",
