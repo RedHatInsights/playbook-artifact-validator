@@ -26,7 +26,7 @@ If validation is successful, the uploaded archive is then made available to plat
 
 ### Running the service
 
-Run `make run` to start the validator service
+Use `make run` to start the validator service
 
 To test the service manually run `make sample_upload`. This uploads the `upload.txt` file via the ingress service.
 
