@@ -26,10 +26,10 @@ If validation is successful, the uploaded archive is then made available to plat
 
 ### Running the service
 
-Run `ACG_CONFIG=$(pwd)/cdappconfig.json go run main.go` to start the validator service
+Run `make run` to start the validator service
 
-To test the service manually run `curl -v -F "file=@somefile.txt;type=application/vnd.redhat.playbook.somefile+tgz" -H "x-rh-identity: eyJpZGVudGl0eSI6IHsiYWNjb3VudF9udW1iZXIiOiAiMDAwMDAwMSIsICJpbnRlcm5hbCI6IHsib3JnX2lkIjogIjAwMDAwMSJ9fX0=" -H "x-rh-request_id: 012345" http://localhost:8080/api/ingress/v1/upload` where `somefile.txt` is the name of a file you wish to upload
+To test the service manually run `make sample_upload`. This uploads the `upload.txt` file via the ingress service.
 
 ### Running tests
 
-`ACG_CONFIG=$(pwd)/cdappconfig.json go test -coverprofile cover.out ./...`
+`make test`
