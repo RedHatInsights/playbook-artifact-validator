@@ -10,7 +10,7 @@ objects:
   spec:
     envName: ${ENV_NAME}
     deployments:
-    - name: playbook-artifact-validator
+    - name: consumer
       minReplicas: ${{MIN_REPLICAS}}
       web: false
       podSpec:
