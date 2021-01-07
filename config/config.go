@@ -20,6 +20,7 @@ func Get() *viper.Viper {
 	options.SetDefault("kafka.retry.backoff.ms", 100)
 
 	options.SetDefault("openshift.build.commit", "unknown")
+	options.SetDefault("runner.schema", "./schemas/runner.yaml")
 
 	options.SetDefault("log.level", "debug")
 

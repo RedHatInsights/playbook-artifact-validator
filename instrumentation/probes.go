@@ -7,14 +7,19 @@ import (
 
 var log = utils.GetLoggerOrDie()
 
-func ValidationFailed(request *ingress.Request, cause string) {
+func ValidationSuccess(request *ingress.Request) {
+	validationSuccessTotal.Inc()
+	log.Debugw("Payload valid", "reqId", request.RequestID)
+}
+
+func ValidationFailed(request *ingress.Request, cause error) {
 	validationFailureTotal.Inc()
-	log.Infow("Payload validation failed", "cause", cause, "reqId", request.RequestID)
+	log.Infow("Rejecting payload due to validation failure", "cause", cause, "reqId", request.RequestID)
 }
 
 func UnmarshallingError(err error) {
 	errorTotal.WithLabelValues("unmarshall").Inc()
-	log.Errorw("Request unmarshalling failed", "error", err) // TODO some correlation info
+	log.Errorw("Message unmarshalling failed", "error", err) // TODO some correlation info
 }
 
 func FetchArchiveError(request *ingress.Request, err error) {

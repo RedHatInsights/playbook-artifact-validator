@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	kafkaTimeout = 10000
+	kafkaTimeout = 5000
 )
 
 func main() {
