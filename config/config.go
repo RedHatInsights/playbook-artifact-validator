@@ -22,6 +22,9 @@ func Get() *viper.Viper {
 	options.SetDefault("openshift.build.commit", "unknown")
 	options.SetDefault("runner.schema", "./schemas/runner.yaml")
 
+	options.SetDefault("storage.timeout", 10)
+	options.SetDefault("storage.retries", 3)
+
 	options.SetDefault("log.level", "debug")
 
 	if os.Getenv("CLOWDER_ENABLED") != "false" {
