@@ -8,14 +8,18 @@ import (
 	"playbook-artifact-validator/ingress"
 	probes "playbook-artifact-validator/instrumentation"
 	"playbook-artifact-validator/utils"
+	"time"
 
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 )
 
 var (
-	cfg   = config.Get()
-	topic = cfg.GetString("topic.response")
-	log   = utils.GetLoggerOrDie()
+	cfg    = config.Get()
+	topic  = cfg.GetString("topic.response")
+	log    = utils.GetLoggerOrDie()
+	client = &http.Client{
+		Timeout: time.Duration(cfg.GetInt64("storage.timeout") * int64(time.Second)),
+	}
 )
 
 func OnMessage(msg *kafka.Message) *kafka.Message {
@@ -27,8 +31,7 @@ func OnMessage(msg *kafka.Message) *kafka.Message {
 		return nil
 	}
 
-	// TODO: retry, timeout
-	res, err := http.Get(request.URL)
+	res, err := utils.DoGetWithRetry(client, request.URL, cfg.GetInt("storage.retries"))
 
 	if err != nil {
 		probes.FetchArchiveError(request, err)
