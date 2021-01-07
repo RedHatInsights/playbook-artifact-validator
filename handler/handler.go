@@ -27,6 +27,7 @@ func OnMessage(msg *kafka.Message) *kafka.Message {
 		return nil
 	}
 
+	// TODO: retry, timeout
 	res, err := http.Get(request.URL)
 
 	if err != nil {
