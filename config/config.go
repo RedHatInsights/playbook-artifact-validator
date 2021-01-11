@@ -34,6 +34,11 @@ func Get() *viper.Viper {
 
 		options.SetDefault("metrics.port", clowder.LoadedConfig.MetricsPort)
 		options.SetDefault("metrics.path", clowder.LoadedConfig.MetricsPath)
+
+		options.SetDefault("log.cw.accessKeyId", clowder.LoadedConfig.Logging.Cloudwatch.AccessKeyId)
+		options.SetDefault("log.cw.secretAccessKey", clowder.LoadedConfig.Logging.Cloudwatch.SecretAccessKey)
+		options.SetDefault("log.cw.region", clowder.LoadedConfig.Logging.Cloudwatch.Region)
+		options.SetDefault("log.cw.group", clowder.LoadedConfig.Logging.Cloudwatch.LogGroup)
 	} else {
 		options.SetDefault("kafka.bootstrap.servers", "kafka:29092")
 		options.SetDefault("topic.request", "platform.upload.playbook")

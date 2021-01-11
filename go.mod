@@ -3,6 +3,8 @@ module playbook-artifact-validator
 go 1.14
 
 require (
+	github.com/RedHatInsights/cloudwatch v0.0.0-20210111105023-1df2bdfe3291
+	github.com/aws/aws-sdk-go v1.30.11
 	github.com/confluentinc/confluent-kafka-go v1.5.2
 	github.com/ghodss/yaml v1.0.0
 	github.com/onsi/ginkgo v1.7.0

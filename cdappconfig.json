@@ -5,10 +5,10 @@
     "logging": {
         "type": "cloudwatch",
         "cloudwatch": {
-            "accessKeyId": "ACCESS_KEY",
-            "secretAccessKey": "SECRET_ACCESS_KEY",
-            "region": "EU",
-            "logGroup": "base_app"
+            "accessKeyId": "",
+            "secretAccessKey": "",
+            "region": "",
+            "logGroup": ""
         }
     },
     "kafka": {
