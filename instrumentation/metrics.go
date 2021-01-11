@@ -28,4 +28,9 @@ var (
 
 func StartMetrics(config *viper.Viper, mux *http.ServeMux) {
 	mux.Handle(config.GetString("metrics.path"), promhttp.Handler())
+
+	// initialize label values
+	// https://www.robustperception.io/existential-issues-with-metrics
+	errorTotal.WithLabelValues(errorUnmarshall)
+	errorTotal.WithLabelValues(errorS3)
 }

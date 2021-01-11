@@ -7,6 +7,11 @@ import (
 
 var log = utils.GetLoggerOrDie()
 
+const (
+	errorUnmarshall = "unmarshall"
+	errorS3         = "s3fetch"
+)
+
 func ValidationSuccess(request *ingress.Request) {
 	validationSuccessTotal.Inc()
 	log.Debugw("Payload valid", "reqId", request.RequestID)
@@ -18,11 +23,11 @@ func ValidationFailed(request *ingress.Request, cause error) {
 }
 
 func UnmarshallingError(err error) {
-	errorTotal.WithLabelValues("unmarshall").Inc()
+	errorTotal.WithLabelValues(errorUnmarshall).Inc()
 	log.Errorw("Message unmarshalling failed", "error", err) // TODO some correlation info
 }
 
 func FetchArchiveError(request *ingress.Request, err error) {
-	errorTotal.WithLabelValues("s3fetch").Inc()
+	errorTotal.WithLabelValues(errorS3).Inc()
 	log.Errorw("Failed to fetch uploaded archive", "error", err, "reqId", request.RequestID)
 }
