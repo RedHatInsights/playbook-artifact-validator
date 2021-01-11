@@ -1,6 +1,6 @@
 {
-    "webPort": 9000,
-    "metricsPort": 9000,
+    "webPort": 9001,
+    "metricsPort": 9001,
     "metricsPath": "/metrics",
     "logging": {
         "type": "cloudwatch",
