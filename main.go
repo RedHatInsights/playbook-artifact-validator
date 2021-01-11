@@ -52,6 +52,7 @@ func main() {
 		resp.WriteHeader(http.StatusOK)
 	})
 
+	log.Infof("Listening on port %d", config.GetInt("metrics.port"))
 	go http.ListenAndServe(fmt.Sprintf(":%d", config.GetInt("metrics.port")), mux)
 
 	defer func() {
