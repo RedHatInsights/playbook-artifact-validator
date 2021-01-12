@@ -31,3 +31,8 @@ func FetchArchiveError(request *ingress.Request, err error) {
 	errorTotal.WithLabelValues(errorS3).Inc()
 	log.Errorw("Failed to fetch uploaded archive", "error", err, "reqId", request.RequestID)
 }
+
+func FileTooLarge(request *ingress.Request) {
+	validationFailureTotal.Inc()
+	log.Infow("Rejecting payload due to file size", "size", request.Size, "reqId", request.RequestID)
+}

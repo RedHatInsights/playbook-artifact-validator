@@ -31,6 +31,25 @@ func OnMessage(msg *kafka.Message) *kafka.Message {
 		return nil
 	}
 
+	response := onRequest(request)
+
+	if marshalled, err := json.Marshal(response); err == nil {
+		return &kafka.Message{
+			TopicPartition: kafka.TopicPartition{Topic: &topic, Partition: kafka.PartitionAny},
+			Value:          marshalled,
+		}
+	} else {
+		panic(err) // should never happen
+	}
+}
+
+func onRequest(request *ingress.Request) *ingress.Response {
+	if request.Size > cfg.GetInt64("max.size") {
+		probes.FileTooLarge(request)
+
+		return ingress.NewResponse(request, "failure")
+	}
+
 	res, err := utils.DoGetWithRetry(client, request.URL, cfg.GetInt("storage.retries"))
 
 	if err != nil {
@@ -42,14 +61,5 @@ func OnMessage(msg *kafka.Message) *kafka.Message {
 	res.Body.Close()
 
 	log.Debugw("Processing request", "account", request.Account, "reqId", request.RequestID)
-	response := validateArtifacts(request, data)
-
-	if marshalled, err := json.Marshal(response); err == nil {
-		return &kafka.Message{
-			TopicPartition: kafka.TopicPartition{Topic: &topic, Partition: kafka.PartitionAny},
-			Value:          marshalled,
-		}
-	} else {
-		panic(err) // should never happen
-	}
+	return validateArtifacts(request, data)
 }
