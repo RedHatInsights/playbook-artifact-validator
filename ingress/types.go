@@ -20,3 +20,10 @@ type Response struct {
 	Request
 	Validation string `json:"validation"`
 }
+
+func NewResponse(req *Request, result string) *Response {
+	return &Response{
+		Request:    *req,
+		Validation: result,
+	}
+}

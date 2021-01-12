@@ -27,6 +27,8 @@ func Get() *viper.Viper {
 
 	options.SetDefault("log.level", "debug")
 
+	options.SetDefault("max.size", 1024*1024)
+
 	if os.Getenv("CLOWDER_ENABLED") != "false" {
 		options.SetDefault("kafka.bootstrap.servers", strings.Join(clowder.KafkaServers, ","))
 		options.SetDefault("topic.request", clowder.KafkaTopics["platform.upload.playbook"].Name)
