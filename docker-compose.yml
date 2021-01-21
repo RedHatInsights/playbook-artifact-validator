@@ -4,6 +4,19 @@
 # Please consult its README.md for bucket creation steps
 version: "3"
 services:
+  validator:
+    image: quay.io/cloudservices/playbook-artifact-validator
+    build:
+      context: .
+    links:
+    - kafka
+    - minio
+    ports:
+      - '9001:9001'
+    environment:
+      CLOWDER_ENABLED: "false"
+    restart: unless-stopped
+
   zookeeper:
     image: confluentinc/cp-zookeeper
     environment:
@@ -12,7 +25,7 @@ services:
   kafka:
     image: confluentinc/cp-kafka
     ports:
-      - 29092:29092
+      - '29092:29092'
     depends_on:
       - zookeeper
     environment:
@@ -31,14 +44,14 @@ services:
       - minio_conf:/root/.minio:Z
       - minio_data:/data:Z
     ports:
-      - 9000:9000
+      - '9000:9000'
     environment:
       - MINIO_ACCESS_KEY=$MINIO_ACCESS_KEY
       - MINIO_SECRET_KEY=$MINIO_SECRET_KEY
   ingress:
     image: quay.io/cloudservices/insights-ingress:ea99e26
     ports:
-      - 8080:3000
+      - '8080:3000'
     environment:
       - INGRESS_STAGEBUCKET=insights-upload-perma
       - INGRESS_VALIDTOPICS=playbook

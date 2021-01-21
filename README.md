@@ -20,15 +20,15 @@ If validation is successful, the uploaded archive is then made available to plat
 
 ### Setup
 
-1. Run `sudo echo "127.0.0.1 kafka minio" >> /etc/hosts`
-1. Run `docker-compose up` to start dependencies
-1. Follow the steps [to create a new bucket and set up access policy](https://github.com/RedHatInsights/insights-ingress-go/tree/master/development#running)
+Follow the steps [to create a new bucket and set up access policy](https://github.com/RedHatInsights/insights-ingress-go/tree/master/development#running)
 
 ### Running the service
 
-Use `make run` to start the validator service
+Run `docker-compose up --build` to start the service and its dependencies
 
-To test the service manually run `make sample_upload`. This uploads the `upload.txt` file via the ingress service.
+To test the service manually run `make sample_upload`.
+This uploads the `upload.txt` file via the ingress service.
+Afterwards, look for `Payload valid` message in validator logs.
 
 ### Running tests
 
